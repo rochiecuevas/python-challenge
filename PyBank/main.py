@@ -40,10 +40,11 @@ with open("03-Python_homework_PyBank_Resources_budget_data.csv","r") as csvfile:
 
 # print out the financial analysis into text file
 with open("PyBank.txt","w") as outfile:
-    print >> outfile, "Financial Analysis"
-    print >> outfile, "------------------------------"
-    print >> outfile, "Total Months: " + str(no_months)
-    print >> outfile, "Total: $" + str(int(net_amt))
-    print >> outfile, "Average Change: $" + str(round(ave_change,2))
-    print >> outfile, "Greatest Increase in Profits: " + date_in + " ($" + str(int(gt_in)) + ")"
-    print >> outfile, "Greatest Decrease in Profits: " + date_dc + " ($" + str(int(gt_dc)) + ")"
+    sys.stdout = outfile
+    print "Financial Analysis"
+    print "------------------------------"
+    print "Total Months: " + str(no_months)
+    print "Total: $" + str(int(net_amt))
+    print "Average Change: $" + str(round(ave_change,2))
+    print "Greatest Increase in Profits: " + date_in + " ($" + str(int(gt_in)) + ")"
+    print "Greatest Decrease in Profits: " + date_dc + " ($" + str(int(gt_dc)) + ")"
