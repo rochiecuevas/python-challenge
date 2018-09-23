@@ -4,7 +4,7 @@ import csv
 # open csv file
 with open("03-Python_homework_PyBank_Resources_budget_data.csv","r") as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
-    next(csvreader, None) # excludes the header row for hte csvreader
+    next(csvreader, None) # excludes the header row for the csvreader
 
     # generate empty lists of Dates and Profit/Losses
     Date = []
@@ -38,23 +38,12 @@ with open("03-Python_homework_PyBank_Resources_budget_data.csv","r") as csvfile:
     date_dc = Date[change.index(gt_dc) + 1] # to give the date for Profit_Loss[i-1]
     date_in = Date[change.index(gt_in) + 1] # to give the date for Profit_Loss[i-1]
 
-# print out the financial analysis
-    print("Financial Analysis")
-    print("------------------------------")
-    print("Total Months: " + str(no_months))
-    print("Total: $" + str(int(net_amt)))
-    print("Average Change: $" + str(round(ave_change,2)))
-    print("Greatest Increase in Profits: " + date_in + " ($" + str(int(gt_in)) + ")")
-    print("Greatest Decrease in Profits: " + date_dc + " ($" + str(int(gt_dc)) + ")")
-
-
-# create new text file
-#f = open("PyBank.txt","w")
-#f.write("Financial Analysis")
-#f.write("\n" + "------------------------------")
-#f.write("\n" + "Total Months: " + str(x))
-#f.write("\n" + "Total: $" + str(y))
-#f.write("\n" + "Average Change: $" + str(round(ave,2)))
-#f.write("\n" + "Greatest Increase in Profits: " + z_max_loc + " ($" + str(z_max) + ")")
-#f.write("\n" + "Greatest Decrease in Profits: " + z_min_loc + " ($" + str(z_min) + ")")
-#f.close()
+# print out the financial analysis into text file
+with open("PyBank.txt","w") as outfile:
+    print >> outfile, "Financial Analysis"
+    print >> outfile, "------------------------------"
+    print >> outfile, "Total Months: " + str(no_months)
+    print >> outfile, "Total: $" + str(int(net_amt))
+    print >> outfile, "Average Change: $" + str(round(ave_change,2))
+    print >> outfile, "Greatest Increase in Profits: " + date_in + " ($" + str(int(gt_in)) + ")"
+    print >> outfile, "Greatest Decrease in Profits: " + date_dc + " ($" + str(int(gt_dc)) + ")"
