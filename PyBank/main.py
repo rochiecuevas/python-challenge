@@ -39,8 +39,6 @@ with open("03-Python_homework_PyBank_Resources_budget_data.csv","r") as csvfile:
     date_in = Date[change.index(gt_in) + 1] # to give the date for Profit_Loss[i-1]
 
 # print out the financial analysis into text file
-with open("PyBank.txt","w") as outfile:
-    sys.stdout = outfile
     print "Financial Analysis"
     print "------------------------------"
     print "Total Months: " + str(no_months)
