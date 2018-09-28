@@ -1,52 +1,57 @@
-# import modules
 import csv
 
-print("Election Results")
-print("----------------------------")
+# function for number of voters
+def voter_counter(votes_list):
+    num = 0
+    for each in votes_list:
+        num = num + 1
+    return num    
 
+# function to find unique candidates
+def unique_candidates (votes_list):
+    tally = [i[2] for i in votes_list] # list of candidates
+    unique = {}
+    for i in tally:
+        if not i in unique: 
+            unique[i] = 1
+        else:
+            unique[i] += 1
+    return unique
+
+# calculate percent votes per candidate
+def pct_votes(votes_list):
+    values = unique_candidates(votes_list).values()
+    pct = [((float(i) / voter_counter(votes_list)) * 100) for i in values]
+    return pct
+
+###
 # open csv file
 with open("03-Python_homework_PyPoll_Resources_election_data.csv", "r") as csvfile:
-    csvreader = csv.DictReader(csvfile)
+    csvreader = csv.reader(csvfile)
     next(csvreader,None)
 
-    Poll_Results = [] # start with an empty set
-    for row in csvreader:
-        Poll_Results.append(row) # populate the list with dictionaries of voter-county-candidate combinations
-    
-    no_voters = len(Poll_Results) # number of voters
+    # create a list to be used in the function/s
+    votes = [row for row in csvreader]
 
-    print("Total Votes: " + str(no_voters))
-    print("----------------------------")
+    #summarise
+    total_votes = voter_counter(votes)
+    cand_votes = unique_candidates(votes).values()
+    cand_keys = unique_candidates(votes).keys()
+    cand_pct = pct_votes(votes)
+    win = max(pct_votes(votes))
 
-    Candidate = [] # empty list
-    for vote in Poll_Results: # populate the empty list of candidates
-        Candidate.append(vote["Candidate"])
-    
-    candidate_set = set(Candidate) # list of candidates
+    print("Election Results")
+    print("--------------------------")
+    print("Total Votes: " + str(total_votes))
+    print("--------------------------")
 
-    cand_vote = [] # empty list
-    for i in candidate_set:
-        cand_vote.append(Candidate.count(i)) # populate list of the number of votes per candidate
-
-    pct_vote = [] # empty list    
-    for j in cand_vote:    
-        pct_vote.append((float(j) / no_voters) * 100) # populate list of % votes per candidate
-    
-    win = max(pct_vote)
-
-    # create a zip file of the lists
-    election_results = [[x,y,z] for x,y,z in zip(candidate_set,pct_vote,cand_vote)]
-
-    # find the winning candidate
+    election_results = [[x,y,z] for x,y,z in zip(cand_keys, cand_pct, cand_votes)]
     for row in election_results:
-        summary = row[0] + ": " + str(row[1]) +"%" + " (" + str(row[2]) + ")"
-        print(summary)
-        
-        if row[1] == win:
-            winner = row[0] 
-    
-    print("----------------------------")
-    print("Winner: " + winner)
-    print("----------------------------")
+        print(row[0] +": " + str(round(row[1],3)) + "% (" + str(row[2]) + ")")
 
-        
+        if row[1] == win:
+            winner = row[0]
+
+    print("--------------------------")
+    print("Winner: " + winner)
+    print("--------------------------")
