@@ -39,10 +39,19 @@ with open("03-Python_homework_PyBank_Resources_budget_data.csv","r") as csvfile:
     date_in = Date[change.index(gt_in) + 1] # to give the date for Profit_Loss[i-1]
 
 # print out the financial analysis into text file
-    print "Financial Analysis"
-    print "------------------------------"
-    print "Total Months: " + str(no_months)
-    print "Total: $" + str(int(net_amt))
-    print "Average Change: $" + str(round(ave_change,2))
-    print "Greatest Increase in Profits: " + date_in + " ($" + str(int(gt_in)) + ")"
-    print "Greatest Decrease in Profits: " + date_dc + " ($" + str(int(gt_dc)) + ")"
+    summary = f''' 
+    Financial Analysis
+    ------------------------------
+    Total Months: {no_months}
+    Total: ${int(net_amt)}
+    Average Change: ${(round(ave_change,2))}
+    Greatest Increase in Profits: {date_in} (${(int(gt_in))})
+    Greatest Decrease in Profits: {date_dc} (${(int(gt_dc))})
+    '''
+    print(summary)
+
+# save output into a text file
+output = open("PyBank.txt","w")
+output.write(summary)
+output.close()    
+    
